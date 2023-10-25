@@ -10,7 +10,6 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@vercel/kv": "latest",
     "@mdi/font": "^7.3.67",
     "@nuxt/devtools": "latest",
     "nuxt": "^3.8.0",
