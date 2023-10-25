@@ -74,7 +74,7 @@ export default {
 .title {
   font-size: 2em;
   margin-bottom: 26px;
-  color: #2c3e50;
+   color: #89c1fa;
   text-align: center;
 }
 .custom-timeline {

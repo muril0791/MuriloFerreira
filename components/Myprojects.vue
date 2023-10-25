@@ -93,7 +93,7 @@ const openDialog = (project) => {
 .title {
   font-size: 2em;
   margin-bottom: 16px;
-  color: #2c3e50;
+   color: #89c1fa;
 }
 .project-card {
   width: 100%;

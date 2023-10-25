@@ -8,13 +8,13 @@
         </v-avatar>
 
         <v-list-item
-          class="text-white"
-          color="green-accent-3"
+          color="white"
           title="Murilo Ferreira"
           subtitle="Game Developer"
         ></v-list-item>
 
-        <v-card-text>
+        <v-card-text color="white" text--white>
+          
           Olá! Meu nome é Murilo Ferreira e sou um desenvolvedor apaixonado.
           Tenho uma ampla experiência em desenvolvimento, bem como em
           desenvolver jogos interativos e envolventes. Estou sempre em busca de
@@ -96,10 +96,11 @@ const showMoreInfo = () => {
 </script>
 
 <style scoped>
+
 .title {
   font-size: 2em;
   margin-bottom: 16px;
-  color: #2c3e50;
+  color: #89c1fa;
 }
 
 .v-container {
@@ -118,7 +119,7 @@ const showMoreInfo = () => {
 }
 
 .text-white {
-  color: #2c3e50 !important;
+  color: #ffffff !important;
 }
 
 .v-card-subtitle {
@@ -128,7 +129,7 @@ const showMoreInfo = () => {
 }
 
 .v-card-text {
-  color: #2c3e50;
+  color: #ffffff;
   margin: 20px 0;
 }
 

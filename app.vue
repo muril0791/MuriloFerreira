@@ -1,5 +1,5 @@
 <template>
-  <v-app :dark="darkMode">
+  <v-app class="v-app">
     <div class="sticky-container">
       <v-icon
         class="icon-menu"
@@ -125,6 +125,10 @@ export default {
 </script>
 
 <style scoped>
+.v-app{
+  background-color: rgb(26, 26, 26);
+  color: white;
+}
 .sticky-container {
   position: -webkit-sticky;
   position: sticky;
