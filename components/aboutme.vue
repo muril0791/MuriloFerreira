@@ -1,37 +1,45 @@
 <template>
-  <v-div class="v-div">
-    <v-app-bar-title class="title">About me</v-app-bar-title>
-    <v-avatar class="avatar" color="primary" size="250">
-      <img src="../assets/MyPic.jpeg" />
-    </v-avatar>
-    <v-list-item
-      class="text-white"
-      title="Marcus Obrien"
-      subtitle="Network Engineer"
-    ></v-list-item>
+  <v-container class="v-container">
+    <v-row class="justify-center text-center">
+      <v-col cols="12" md="6">
+        <v-app-bar-title class="title">About me</v-app-bar-title>
+        <v-avatar class="avatar" color="primary" size="250">
+          <img src="../assets/MyPic.jpeg" />
+        </v-avatar>
+        <v-list-item
+          class="text-white"
+          title="Marcus Obrien"
+          subtitle="Network Engineer"
+        ></v-list-item>
 
-    <v-card-subtitle class="pt-0">Game Developer</v-card-subtitle>
+        <v-card-subtitle class="pt-0">Game Developer</v-card-subtitle>
 
-    <v-card-text>
-      Olá! Meu nome é Murilo e sou Desenvolvedor. Tenho uma paixão por
-      Tecnologia e tenho experiência trabalhando com "Vue.js, Vuetify, Nuxt,
-      React, Java, etc" Quando não estou trabalhando, gosto de jogar,
-      desenvolver algumas coisas, estudar novas tecnologias. Estou sempre
-      buscando novos desafios e oportunidades para crescer e aprender mais!
-    </v-card-text>
+        <v-card-text>
+          <!-- ... seu texto ... -->
+        </v-card-text>
 
-    <v-btn text color="blue" @click="showMoreInfo">Mais informações</v-btn>
-  </v-div>
+        <v-btn text color="blue" @click="dialog = true">Mais informações</v-btn>
+
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card>
+            <v-card-title>Mais Informações</v-card-title>
+            <v-card-text>
+              <!-- ... seu texto ... -->
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
-<script>
-export default {
-  name: "AboutMe",
-  methods: {
-    showMoreInfo() {
-      alert("Aqui você pode adicionar mais informações ou links relacionados!");
-    },
-  },
+<script setup>
+import { ref } from 'vue';
+
+const dialog = ref(false);
+
+const showMoreInfo = () => {
+  dialog.value = true;
 };
 </script>
 
@@ -39,17 +47,12 @@ export default {
 .title {
   text-align: center;
 }
-.v-div {
+.v-container {
   padding: 8px;
 }
 .mx-auto {
   width: 350px;
   background-color: rgb(167, 150, 240) !important;
-}
-
-.img {
-  border-radius: 50%;
-  text-align: center;
 }
 .avatar {
   margin: 10px;

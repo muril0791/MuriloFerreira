@@ -12,7 +12,7 @@
         cols="12" sm="6" md="4" lg="3"
         class="d-flex flex-column align-center mb-4"
       >
-        <v-hover>
+        <v-hover v-slot:default="{ hover }">
           <v-card
             @click="openDialog(project)"
             class="project-card text-center"
@@ -28,7 +28,7 @@
       </v-col>
     </v-row>
 
-    <v-dialog v-model="dialog" max-width="600px">
+    <v-dialog v-model:prop="dialog" max-width="600px">
       <v-card>
         <v-card-title>
           {{ activeProject.title }}
@@ -39,60 +39,53 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
   </v-container>
 </template>
 
-<script>
-export default {
-  name: "Projects",
-  data: () => ({
-    dialog: false,
-    activeProject: {},
-    projects:[
-      {
-        title: "Game",
-        image: "static/v.png",
-        link: "https://link_para_jogo1.com",
-      },
-      {
-        title: "Teste",
-        image: "static/v.png",
-        link: "https://link_para_website1.com",
-      },
-      {
-        title: "Deu",
-        image: "static/v.png",
-        link: "https://link_para_jogo1.com",
-      },
-      {
-        title: "Teste 1231823",
-        image: "static/v.png",
-        link: "https://link_para_jogo1.com",
-      },
-      {
-        title: "1231231231",
-        image: "static/v.png",
-        link: "https://link_para_jogo1.com",
-      },
-      {
-        title: "asdasdasd",
-        image: "static/v.png",
-        link: "https://link_para_jogo1.com",
-      },
-    ],
-  }),
-   computed: {
-    displayedProjects() {
-      return this.projects.slice(0, 12);
-    },
+<script setup>
+import { ref, computed } from 'vue';
+
+const dialog = ref(false);
+const activeProject = ref({});
+const projects = ref([
+  {
+    title: "Game",
+    image: "static/v.png",
+    link: "https://link_para_jogo1.com",
   },
-  methods: {
-    openDialog(project) {
-      this.activeProject = project;
-      this.dialog = true;
-    },
+  {
+    title: "Teste1",
+    image: "static/v.png",
+    link: "https://link_para_website1.com",
   },
+   {
+    title: "Teste2",
+    image: "static/v.png",
+    link: "https://link_para_website1.com",
+  },
+   {
+    title: "Teste3",
+    image: "static/v.png",
+    link: "https://link_para_website1.com",
+  },
+   {
+    title: "Teste4",
+    image: "static/v.png",
+    link: "https://link_para_website1.com",
+  },
+   {
+    title: "Teste5",
+    image: "static/v.png",
+    link: "https://link_para_website1.com",
+  },
+  // ... other projects
+]);
+
+const displayedProjects = computed(() => projects.value.slice(0, 12));
+
+const openDialog = (project) => {
+  activeProject.value = project;
+  dialog.value = true;
 };
 </script>
 
@@ -119,8 +112,3 @@ export default {
   white-space: nowrap;
 }
 </style>
-
-
-
-
-

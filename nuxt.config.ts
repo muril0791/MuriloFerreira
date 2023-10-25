@@ -8,6 +8,5 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"],
   },
-  
-  devtools: { enabled: true }
+
 });

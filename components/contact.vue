@@ -70,7 +70,6 @@ export default {
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        // Envie o formulário aqui
         alert('Formulário enviado com sucesso!');
         this.clear();
       }

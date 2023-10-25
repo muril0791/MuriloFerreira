@@ -1,47 +1,65 @@
 <template>
   <v-container fluid>
-    <v-row class="justify-center text-center mb-5">
-      <v-col cols="12">
+    <v-row class="text-center mb-5">
+      <v-col>
         <div class="display-2">Expertise</div>
       </v-col>
     </v-row>
-    <v-row v-for="skill in skills" :key="skill.name" class="mb-5 pa-3 rounded-lg elevation-2" :class="`background-color-${skill.color}`">
-      <v-col cols="12" md="3" class="d-flex align-center justify-center">
-        {{ skill.name }}
-      </v-col>
-      <v-col cols="12" md="3" class="d-flex align-center justify-center">
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-slider
+    <v-row>
+      <v-col v-for="skill in skills" :key="skill.name" cols="12" sm="6" md="4" class="d-flex flex-column align-center justify-center mb-4">
+        <div class="font-weight-bold">{{ skill.name }}</div>
+        <v-progress-circular
+          :rotate="-90"
+          :size="progressSize"
+          :width="15"
+          :model-value="getLevelValue(skill.level)"
           :color="skill.color"
-          :max="5"
-          :value="skill.level"
-          readonly
-          thumb-label="always"
-        ></v-slider>
+        >
+          {{ skill.level }}
+        </v-progress-circular>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { ref, computed, onMounted } from 'vue';
+import skills from '../skills';  // Ajuste o caminho conforme necessário
+
 export default {
   name: "Expertise",
-  props: {
-    skills: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
+  data() {
+    return {
+      skills
+    };
+  },
+  setup() {
+    const progressSize = ref(70);  
+
+    onMounted(() => {
+      if (process.client) {
+        const isLargeScreen = window.matchMedia('(min-width: 1200px)').matches;
+        progressSize.value = isLargeScreen ? 100 : 70;
+      }
+    });
+
+    function getLevelValue(level) {
+      const levelValue = typeof level === 'number' && level <= 5 && level >= 0 ? level * 20 : 0;
+      return levelValue;
+    }
+
+    return {
+      progressSize,
+      getLevelValue
+    }
   },
 };
 </script>
 
 <style scoped>
-.rounded-lg {
-  border-radius: 12px !important;
-}
-.background-color-{
-background: grey;
+.font-weight-bold {
+  font-size: 1.2em;
+  text-align: center;
+  margin-bottom: 10px;
 }
 </style>

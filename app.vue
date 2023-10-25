@@ -13,7 +13,7 @@
         class="sticky-tabs"
         v-if="!isXs"
         v-model="tab"
-        bg-color="green"
+        color="deep-purple-accent-4"
         fixed-tabs
       >
         <v-switch
@@ -32,11 +32,11 @@
     </div>
     <v-navigation-drawer app v-model="drawer" :temporary="true">
       <v-switch
-        v-model="darkMode"
-        label="Dark Mode"
-        @change="toggleDarkMode"
-      ></v-switch>
-      <v-list  v-if="!isXs" v-model="drawerTab" dense>
+          v-model="darkMode"
+          label="Dark Mode"
+          @change="toggleDarkMode"
+        ></v-switch>
+      <v-list v-if="isXs" v-model="drawerTab" dense>
         <v-list-item @click="navigate('sobre-mim', 'one')"
           >Sobre Mim</v-list-item
         >
@@ -52,7 +52,7 @@
     </v-navigation-drawer>
     <section id="sobre-mim"><aboutme /></section>
     <section id="project"><myprojects /></section>
-    <section id="expertise"><expertise :skills="mySkills" /></section>
+    <section id="expertise"><expertise/></section>
     <section id="expirience"><experience /></section>
     <section id="contact"><contact /></section>
     <Footer />
@@ -66,18 +66,33 @@ import experience from "../components/experience.vue";
 import Expertise from "../components/expertise.vue";
 import Footer from "../components/footer.vue";
 import Myprojects from "../components/Myprojects.vue";
-import mySkills from "./skills"
-
+import { ref, onMounted } from 'vue';
 export default {
   components: { aboutme, Expertise, Contact, Myprojects, experience, Footer },
   name: "DefaultLayout",
+  setup() {
+    const darkMode = ref(false);
+    const toggleDarkMode = () => {
+      darkMode.value = !darkMode.value;
+      localStorage.setItem("darkMode", JSON.stringify(darkMode.value));
+    };
+    onMounted(() => {
+      const savedDarkMode = JSON.parse(localStorage.getItem("darkMode"));
+      if (savedDarkMode !== null) {
+        darkMode.value = savedDarkMode;
+      }
+    });
+    return {
+      darkMode,
+      toggleDarkMode,
+    };
+  },
   data: () => ({
     drawer: false,
     drawerTab: null,
     tab: null,
-    darkMode: false,
-    mySkills,
-    isXs: false
+    darkMode: true,
+    isXs: false,
   }),
   methods: {
     updateXs() {
@@ -96,13 +111,13 @@ export default {
       }
     },
     toggleDarkMode() {
-      this.$vuetify.theme.dark = this.darkMode;
+      theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
       localStorage.setItem("darkMode", this.darkMode);
     },
   },
   mounted() {
-    window.addEventListener('resize', this.updateXs);
-    this.updateXs();  
+    window.addEventListener("resize", this.updateXs);
+    this.updateXs();
     if (process.client) {
       const savedDarkMode = localStorage.getItem("darkMode") === "true";
       this.darkMode = savedDarkMode;
@@ -110,12 +125,15 @@ export default {
     }
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.updateXs);
+    window.removeEventListener("resize", this.updateXs);
   },
 };
 </script>
 
 <style scoped>
+*{
+  overflow: hidden!important;
+}
 .sticky-container {
   position: -webkit-sticky;
   position: sticky;

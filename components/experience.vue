@@ -14,30 +14,22 @@
         fill-dot
       >
         <template v-slot:opposite>
-          <div
-            :class="`headline font-weight-bold text--${year.colors}`"
-          >{{ year.year }}</div>
+          <div :class="`headline font-weight-bold text--${year.colors}`">
+            {{ year.year }}
+          </div>
         </template>
-        <v-card
-          :color="`${year.colors}`"
-          class="elevation-2 mb-4"
-        >
-          <v-card-title
-            :color="`${year.colors} `"
-            class="headline font-weight-bold"
-          >{{ year.title }}</v-card-title>
-          <v-card-text>{{ year.text }}</v-card-text>
-        </v-card>
+        <h2 :style="{ color: year.colors }" class="headline font-weight-bold">
+          {{ year.title }}
+        </h2>
+        <div>{{ year.text }}</div>
       </v-timeline-item>
     </v-timeline>
   </v-container>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    years: [
-      {
+<script setup >
+import { ref } from 'vue';
+const years = ref([
+  {
         colors: "cyan",
         year: "2017",
         title: "Faculdade",
@@ -67,18 +59,12 @@ export default {
         title: "Jogo Global",
         text: "asdasd",
       },
-    ],
-  }),
-};
+]);
+
 </script>
 
+
 <style scoped>
-.v-div {
-  justify-content: center;
-  display: flex;
-  align-content: center;
-  width: 100vw;
-}
 .headline {
   font-size: 1.5rem;
 }
