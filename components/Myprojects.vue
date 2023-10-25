@@ -14,7 +14,6 @@
       >
         <v-hover>
           <v-card
-            slot-scope="{ hover }"
             @click="openDialog(project)"
             class="project-card text-center"
             :elevation="hover ? 12 : 2"

@@ -10,7 +10,6 @@
         {{ skill.name }}
       </v-col>
       <v-col cols="12" md="3" class="d-flex align-center justify-center">
-        <!-- <v-icon large :color="skill.color">{{ skill.icon }}</v-icon> -->
       </v-col>
       <v-col cols="12" md="6">
         <v-slider
