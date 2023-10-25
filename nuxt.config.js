@@ -69,5 +69,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    
+  },
+
+  // Generate Configuration: Specify output directory
+  generate: {
+    dir: 'out'  // this will change the generation directory to 'out' instead of 'dist'
   }
 }
