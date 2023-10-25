@@ -1,15 +1,20 @@
 <template>
   <v-footer
-    class="bg-indigo-lighten-1 text-center d-flex flex-column"
+    class="bg-grey-darken-3 text-center d-flex flex-column"
+    variant="outline"
   >
     <div>
-      <v-icon
+      <a
         v-for="icon in icons"
-        :key="icon"
+        :key="icon.id"
+        :href="icon.link"
+        target="_blank" 
         class="mx-4"
-        :icon="icon"
-        variant="text"
-      >{{icon.icons}}</v-icon>
+      >
+        <v-icon :icon="icon.name" variant="text" color="white">
+          {{icon.name}}
+        </v-icon>
+      </a>
     </div>
 
     <div class="pt-0">
@@ -23,14 +28,14 @@
     </div>
   </v-footer>
 </template>
+
 <script>
   export default {
     data: () => ({
       icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-linkedin',
-        'mdi-instagram',
+        {id: 1, name: 'mdi-whatsapp', link: ' https://wa.me/5515981040567'},
+        {id: 3, name: 'mdi-linkedin', link: 'https://www.linkedin.com/in/murilo-ferreira-21557519b/'},
+        {id: 4, name: 'mdi-instagram', link: 'https://www.instagram.com/murilo.ferreira._/'},
       ],
     }),
   }
