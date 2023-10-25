@@ -17,11 +17,11 @@
         fixed-tabs
       >
         <LanguageSwitcher @language-changed="changeLanguage" />
-        <v-switch
+        <!-- <v-switch
           v-model="darkMode"
           label="Dark Mode"
           @change="toggleDarkMode"
-        ></v-switch>
+        ></v-switch> -->
 
         <v-tab value="one" @click="scrollTo('sobre-mim')">Sobre Mim</v-tab>
         <v-tab value="two" @click="scrollTo('project')">Projetos</v-tab>
@@ -36,13 +36,13 @@
       <Clock />
     </div>
     <v-navigation-drawer app v-model="drawer" :temporary="true">
-      <LanguageSwitcher @language-changed="changeLanguage" />
-      <Clock />
-      <v-switch
+      <!-- <LanguageSwitcher @language-changed="changeLanguage" /> -->
+        <LanguageSwitcher />
+      <!-- <v-switch
         v-model="darkMode"
         label="Dark Mode"
         @change="toggleDarkMode"
-      ></v-switch>
+      ></v-switch> -->
       <v-list v-if="isXs" v-model="drawerTab" dense>
         <v-list-item @click="navigate('sobre-mim', 'one')"
           >Sobre Mim</v-list-item
@@ -90,28 +90,11 @@ export default {
     Clock,
   },
   name: "DefaultLayout",
-  setup() {
-    const darkMode = ref(false);
-    const toggleDarkMode = () => {
-      darkMode.value = !darkMode.value;
-      localStorage.setItem("darkMode", JSON.stringify(darkMode.value));
-    };
-    onMounted(() => {
-      const savedDarkMode = JSON.parse(localStorage.getItem("darkMode"));
-      if (savedDarkMode !== null) {
-        darkMode.value = savedDarkMode;
-      }
-    });
-    return {
-      darkMode,
-      toggleDarkMode,
-    };
-  },
+
   data: () => ({
     drawer: false,
     drawerTab: null,
     tab: null,
-    darkMode: true,
     isXs: false,
   }),
   methods: {
@@ -130,21 +113,10 @@ export default {
         window.scrollTo({ top, behavior: "smooth" });
       }
     },
-    toggleDarkMode() {
-      theme.global.name.value = theme.global.current.value.dark
-        ? "light"
-        : "dark";
-      localStorage.setItem("darkMode", this.darkMode);
-    },
   },
   mounted() {
     window.addEventListener("resize", this.updateXs);
     this.updateXs();
-    if (process.client) {
-      const savedDarkMode = localStorage.getItem("darkMode") === "true";
-      this.darkMode = savedDarkMode;
-      this.$vuetify.theme.dark = savedDarkMode;
-    }
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.updateXs);
