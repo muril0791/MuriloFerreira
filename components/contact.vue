@@ -1,5 +1,6 @@
 <template>
   <v-container>
+     <v-app-bar-title class="title">Contact</v-app-bar-title>
     <v-row justify="center">
       <v-col cols="12" md="8">
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -80,3 +81,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+.title {
+  font-size: 2em;
+  margin-bottom: 26px;
+  color: #2c3e50;
+  text-align: center;
+}
+</style>

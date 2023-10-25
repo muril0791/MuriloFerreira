@@ -16,11 +16,13 @@
         color="deep-purple-accent-4"
         fixed-tabs
       >
+        <LanguageSwitcher @language-changed="changeLanguage" />
         <v-switch
           v-model="darkMode"
           label="Dark Mode"
           @change="toggleDarkMode"
         ></v-switch>
+
         <v-tab value="one" @click="scrollTo('sobre-mim')">Sobre Mim</v-tab>
         <v-tab value="two" @click="scrollTo('project')">Projetos</v-tab>
         <v-tab value="three" @click="scrollTo('expertise')"
@@ -30,12 +32,17 @@
         <v-tab value="five" @click="scrollTo('contact')">Contato</v-tab>
       </v-tabs>
     </div>
+     <div class="clock-container">
+      <Clock />
+    </div>
     <v-navigation-drawer app v-model="drawer" :temporary="true">
+      <LanguageSwitcher @language-changed="changeLanguage" />
+      <Clock />
       <v-switch
-          v-model="darkMode"
-          label="Dark Mode"
-          @change="toggleDarkMode"
-        ></v-switch>
+        v-model="darkMode"
+        label="Dark Mode"
+        @change="toggleDarkMode"
+      ></v-switch>
       <v-list v-if="isXs" v-model="drawerTab" dense>
         <v-list-item @click="navigate('sobre-mim', 'one')"
           >Sobre Mim</v-list-item
@@ -50,12 +57,14 @@
         <v-list-item @click="navigate('contact', 'five')">Contato</v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <section id="sobre-mim"><aboutme /></section>
-    <section id="project"><myprojects /></section>
-    <section id="expertise"><expertise/></section>
-    <section id="expirience"><experience /></section>
-    <section id="contact"><contact /></section>
-    <Footer />
+    <main class="mt-5">
+      <section id="sobre-mim"><aboutme /></section>
+      <section id="project"><myprojects /></section>
+      <section id="expertise"><expertise /></section>
+      <section id="expirience"><experience /></section>
+      <section id="contact"><contact /></section>
+      <Footer />
+    </main>
   </v-app>
 </template>
 
@@ -66,9 +75,20 @@ import experience from "../components/experience.vue";
 import Expertise from "../components/expertise.vue";
 import Footer from "../components/footer.vue";
 import Myprojects from "../components/Myprojects.vue";
-import { ref, onMounted } from 'vue';
+import LanguageSwitcher from "../components/LanguageSwitcher.vue";
+import Clock from "../components/Clock.vue";
+import { ref, onMounted } from "vue";
 export default {
-  components: { aboutme, Expertise, Contact, Myprojects, experience, Footer },
+  components: {
+    aboutme,
+    Expertise,
+    Contact,
+    Myprojects,
+    experience,
+    Footer,
+    LanguageSwitcher,
+    Clock,
+  },
   name: "DefaultLayout",
   setup() {
     const darkMode = ref(false);
@@ -96,7 +116,7 @@ export default {
   }),
   methods: {
     updateXs() {
-      this.isXs = window.innerWidth <= 600;
+      this.isXs = window.innerWidth <= 930;
     },
     navigate(sectionId, tabValue) {
       this.drawer = false;
@@ -111,7 +131,9 @@ export default {
       }
     },
     toggleDarkMode() {
-      theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+      theme.global.name.value = theme.global.current.value.dark
+        ? "light"
+        : "dark";
       localStorage.setItem("darkMode", this.darkMode);
     },
   },
@@ -131,9 +153,6 @@ export default {
 </script>
 
 <style scoped>
-*{
-  overflow: hidden!important;
-}
 .sticky-container {
   position: -webkit-sticky;
   position: sticky;
@@ -141,7 +160,12 @@ export default {
   z-index: 1000;
   background-color: inherit;
 }
-
+.clock-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+}
 .icon-menu {
   width: 50px;
   height: 50px;

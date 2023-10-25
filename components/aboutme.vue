@@ -6,27 +6,60 @@
         <v-avatar class="avatar" color="primary" size="250">
           <img src="../assets/MyPic.jpeg" />
         </v-avatar>
+
         <v-list-item
           class="text-white"
-          title="Marcus Obrien"
-          subtitle="Network Engineer"
+          color="green-accent-3"
+          title="Murilo Ferreira"
+          subtitle="Game Developer"
         ></v-list-item>
 
-        <v-card-subtitle class="pt-0">Game Developer</v-card-subtitle>
-
         <v-card-text>
-          <!-- ... seu texto ... -->
+          Olá! Meu nome é Murilo Ferreira e sou um desenvolvedor apaixonado.
+          Tenho uma ampla experiência em desenvolvimento, bem como em
+          desenvolver jogos interativos e envolventes. Estou sempre em busca de
+          novos desafios e oportunidades para expandir meu conhecimento e
+          habilidades.
         </v-card-text>
-
-        <v-btn text color="blue" @click="dialog = true">Mais informações</v-btn>
-
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-btn text color="green-accent-4" variant="outlined" class="mr-2" @click="downloadCV">
+          <v-icon>mdi-download</v-icon>
+          Baixar CV
+        </v-btn>
+        <v-btn text color="deep-purple-accent-4" variant="outlined" @click="dialog = true">Mais informações</v-btn>
+        <v-dialog v-model="dialog" max-width="900px">
           <v-card>
             <v-card-title>Mais Informações</v-card-title>
             <v-card-text>
-              <!-- ... seu texto ... -->
+              Tenho uma formação sólida em programação e uma paixão por criar
+              experiências digitais memoráveis. Além disso, sou bem versado em
+              várias linguagens de programação, incluindo Java, C++ e Python.
+              Também tenho uma boa compreensão dos princípios de design de
+              UX/UI, o que me permite criar interfaces de usuário intuitivas e
+              agradáveis.
+              <v-divider class="my-4"></v-divider>
+              <v-row>
+                <v-col
+                  v-for="(skill, index) in skills"
+                  :key="index"
+                  cols="12"
+                  sm="4"
+                >
+                  <v-chip class="ma-2">{{ skill }}</v-chip>
+                </v-col>
+              </v-row>
             </v-card-text>
           </v-card>
+          <v-footer fixed class="text-center">
+            <v-col class="ma-2 pa-2" cols="12">
+              <v-btn icon :href="socialMedia.linkedin" target="_blank">
+                <v-icon>mdi-linkedin</v-icon>
+              </v-btn>
+              <v-btn icon :href="socialMedia.github" target="_blank">
+                <v-icon>mdi-github</v-icon>
+              </v-btn>
+              <!-- ... outros ícones de redes sociais ... -->
+            </v-col>
+          </v-footer>
         </v-dialog>
       </v-col>
     </v-row>
@@ -34,9 +67,28 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const dialog = ref(false);
+const skills = ref([
+  "JavaScript",
+  "Vue.js",
+  "Networking",
+  "Game Development",
+  "Java",
+  "C++",
+  "Python",
+  "UX/UI Design",
+]);
+const socialMedia = ref({
+  linkedin: "https://www.linkedin.com/in/your-profile",
+  github: "https://github.com/your-profile",
+  // ... outros links de redes sociais ...
+});
+
+const downloadCV = () => {
+  window.open("path/to/your-cv.pdf", "_blank");
+};
 
 const showMoreInfo = () => {
   dialog.value = true;
@@ -45,23 +97,54 @@ const showMoreInfo = () => {
 
 <style scoped>
 .title {
-  text-align: center;
+  font-size: 2em;
+  margin-bottom: 16px;
+  color: #2c3e50;
 }
+
 .v-container {
-  padding: 8px;
+  padding: 16px;
 }
-.mx-auto {
-  width: 350px;
-  background-color: rgb(167, 150, 240) !important;
-}
+
 .avatar {
-  margin: 10px;
+  margin: 20px auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .avatar > img {
   width: 250px;
   height: auto;
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  border-radius: 50%;
+}
+
+.text-white {
+  color: #2c3e50 !important;
+}
+
+.v-card-subtitle {
+  font-size: 1.2em;
+  color: #7f8c8d;
+  margin-top: -10px;
+}
+
+.v-card-text {
+  color: #2c3e50;
+  margin: 20px 0;
+}
+
+.v-btn {
+  margin: 10px 0;
+}
+
+.v-dialog .v-card {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.v-footer {
+  background-color: #ecf0f1;
+}
+
+.social-icons > v-btn {
+  margin: 0 5px;
 }
 </style>

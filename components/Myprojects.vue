@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row class="justify-center text-center my-5">
       <v-col cols="12">
-        <div class="display-2">Projects</div>
+        <v-app-bar-title class="title">Projects</v-app-bar-title>
       </v-col>
     </v-row>
     <v-row class="project-grid pa-3 justify-center">
@@ -15,7 +15,7 @@
         <v-hover v-slot:default="{ hover }">
           <v-card
             @click="openDialog(project)"
-            class="project-card text-center"
+            class="project-card text-center rounded"
             :elevation="hover ? 12 : 2"
           >
             <v-img :src="project.image" class="project-image" aspect-ratio="1">
@@ -90,6 +90,11 @@ const openDialog = (project) => {
 </script>
 
 <style scoped>
+.title {
+  font-size: 2em;
+  margin-bottom: 16px;
+  color: #2c3e50;
+}
 .project-card {
   width: 100%;
   max-width: 250px;

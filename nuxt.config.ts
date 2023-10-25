@@ -8,5 +8,8 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"],
   },
+  plugins: [
+    { src: '~/plugins/vue-mq.js', ssr: false }
+  ],
 
 });

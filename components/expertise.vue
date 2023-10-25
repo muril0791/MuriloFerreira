@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row class="text-center mb-5">
       <v-col>
-        <div class="display-2">Expertise</div>
+       <v-app-bar-title class="title">Expertise</v-app-bar-title>
       </v-col>
     </v-row>
     <v-row>
@@ -57,6 +57,11 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  font-size: 2em;
+  margin-bottom: 16px;
+  color: #2c3e50;
+}
 .font-weight-bold {
   font-size: 1.2em;
   text-align: center;
