@@ -14,8 +14,7 @@
         ></v-list-item>
 
         <v-card-text color="white" text--white>
-          
-          Olá! Meu nome é Murilo Ferreira e sou um desenvolvedor apaixonado.
+          Olá! Meu nome é Murilo Ferreira e sou um desenvolvedor.
           Tenho uma ampla experiência em desenvolvimento, bem como em
           desenvolver jogos interativos e envolventes. Estou sempre em busca de
           novos desafios e oportunidades para expandir meu conhecimento e
@@ -57,7 +56,6 @@
               <v-btn icon :href="socialMedia.github" target="_blank">
                 <v-icon>mdi-github</v-icon>
               </v-btn>
-              <!-- ... outros ícones de redes sociais ... -->
             </v-col>
           </v-footer>
         </v-dialog>
