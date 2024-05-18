@@ -1,84 +1,64 @@
 <template>
-  <v-container fluid>
-    <v-row class="justify-center text-center my-5">
-      <v-col cols="12">
-        <v-app-bar-title class="title">Projects</v-app-bar-title>
-      </v-col>
-    </v-row>
-    <v-row class="project-grid pa-3 justify-center">
-      <v-col
-        v-for="project in displayedProjects"
-        :key="project.title"
-        cols="12" sm="6" md="4" lg="3"
-        class="d-flex flex-column align-center mb-4"
-      >
-        <v-hover v-slot:default="{ hover }">
-          <v-card
-            @click="openDialog(project)"
-            class="project-card text-center rounded"
-            :elevation="hover ? 12 : 2"
-          >
-            <v-img :src="project.image" class="project-image" aspect-ratio="1">
-              <v-overlay v-if="hover" absolute color="black" opacity="0.6">
-                <v-card-title class="overlay-title white--text">{{ project.title }}</v-card-title>
-              </v-overlay>
-            </v-img>
-          </v-card>
-        </v-hover>
-      </v-col>
-    </v-row>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center my-5">
+      <h1 class="text-4xl font-bold text-blue-400">Projects</h1>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-3 justify-center">
+      <div v-for="project in displayedProjects" :key="project.title" class="flex flex-col items-center mb-4">
+        <div @click="openDialog(project)"
+          class="project-card relative text-center rounded-lg transition-transform transform hover:scale-105 cursor-pointer">
+          <img :src="project.image" class="project-image w-full h-full object-cover rounded-lg">
+          <div
+            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+            <h2 class="text-white text-lg">{{ project.title }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <v-dialog v-model:prop="dialog" max-width="600px">
-      <v-card>
-        <v-card-title>
-          {{ activeProject.title }}
-        </v-card-title>
-        <v-img :src="activeProject.image" class="dialog-img" aspect-ratio="1"></v-img>
-        <v-card-text>
-          <a :href="activeProject.link" target="_blank">Link para o projeto</a>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-  </v-container>
+    <div v-if="dialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-gray-900 text-white rounded-lg overflow-hidden max-w-lg w-full">
+        <div class="p-4">
+          <button @click="dialog = false" class="float-right text-gray-400 hover:text-white">&times;</button>
+          <h2 class="text-2xl font-bold mb-4">{{ activeProject.title }}</h2>
+          <img :src="activeProject.image" class="dialog-img w-full h-full object-cover rounded-lg mb-4">
+          <p class="mb-4">{{ activeProject.description }}</p>
+          <a :href="activeProject.link" target="_blank" class="text-blue-500 underline">Link para o projeto</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
+
+// Importando imagens diretamente
+import slotImage from '../assets/SlotImage.webp';
+import spaceinvadersImage from '../assets/spaceinvadersImage.webp'
+import minesImage from '../assets/minesImage.webp'
 
 const dialog = ref(false);
 const activeProject = ref({});
 const projects = ref([
   {
     title: "Game",
-    image: "static/v.png",
+    image: slotImage,
     link: "https://link_para_jogo1.com",
+    description: "Um jogo inovador que oferece uma experiência imersiva e divertida."
   },
   {
     title: "Teste1",
-    image: "static/v.png",
+    image: spaceinvadersImage,
     link: "https://link_para_website1.com",
+    description: "Website desenvolvido com tecnologias modernas para fornecer a melhor experiência ao usuário."
   },
-   {
+  {
     title: "Teste2",
-    image: "static/v.png",
+    image: minesImage,
     link: "https://link_para_website1.com",
+    description: "Projeto focado em soluções de software eficientes e escaláveis."
   },
-   {
-    title: "Teste3",
-    image: "static/v.png",
-    link: "https://link_para_website1.com",
-  },
-   {
-    title: "Teste4",
-    image: "static/v.png",
-    link: "https://link_para_website1.com",
-  },
-   {
-    title: "Teste5",
-    image: "static/v.png",
-    link: "https://link_para_website1.com",
-  },
-  // ... other projects
 ]);
 
 const displayedProjects = computed(() => projects.value.slice(0, 12));
@@ -90,30 +70,63 @@ const openDialog = (project) => {
 </script>
 
 <style scoped>
-.title {
-  font-size: 2em;
-  margin-bottom: 16px;
-   color: #89c1fa;
-}
 .project-card {
   width: 100%;
   max-width: 250px;
-  cursor: pointer;
-  transition: all 0.3s ease;
   margin: auto;
 }
+
 .project-image {
   width: 100%;
+  height: 250px;
   object-fit: cover;
+  border-radius: 0.5rem;
 }
-.project-grid {
-  gap: 16px;
+
+.text-blue-400 {
+  color: #89c1fa;
 }
-.overlay-title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
+
+.bg-black {
+  background-color: #d8d8d886;
+  border-radius: 0.5rem;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.bg-gray-900 {
+  background-color: #1a202c;
+}
+
+.text-gray-400 {
+  color: #9CA3AF;
+}
+
+.rounded-lg {
+  border-radius: 0.75rem;
+}
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.hover\:opacity-100:hover {
+  opacity: 1;
 }
 </style>

@@ -1,71 +1,70 @@
 <template>
-  <v-app class="v-app">
-    <div class="sticky-container">
-      <v-icon
-        class="icon-menu"
-        v-if="isXs"
-        @click="drawer = !drawer"
-        color="white"
-        icon="home"
-        >mdi-menu</v-icon
-      >
-      <v-tabs
-        class="sticky-tabs"
-        v-if="!isXs"
-        v-model="tab"
-        color="deep-purple-accent-4"
-        fixed-tabs
-      >
-        <LanguageSwitcher @language-changed="changeLanguage" />
-        <!-- <v-switch
-          v-model="darkMode"
-          label="Dark Mode"
-          @change="toggleDarkMode"
-        ></v-switch> -->
-
-        <v-tab value="one" @click="scrollTo('sobre-mim')">Sobre Mim</v-tab>
-        <v-tab value="two" @click="scrollTo('project')">Projetos</v-tab>
-        <v-tab value="three" @click="scrollTo('expertise')"
-          >Conhecimentos</v-tab
-        >
-        <v-tab value="four" @click="scrollTo('expirience')">Experiência</v-tab>
-        <v-tab value="five" @click="scrollTo('contact')">Contato</v-tab>
-      </v-tabs>
-    </div>
-     <div class="clock-container">
+  <div class="bg-[#111827] text-white min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50 bg-inherit">
+      <button class="icon-menu md:hidden" @click="drawer = !drawer">
+        <img class="w-8 h-8" src="@/assets/menuIcon.png" />
+      </button>
+      <nav class="hidden md:flex justify-around mt-2">
+        <button v-for="item in menuItems" :key="item.id" @click="setActive(item)"
+          :class="{ 'text-purple-500': activeItem === item }"
+          class="relative text-lg uppercase tracking-wide focus:outline-none">
+          {{ item.label }}
+          <div v-if="activeItem === item" class="absolute left-0 right-0 bottom-0 h-1 bg-purple-500"></div>
+        </button>
+      </nav>
+    </header>
+    <div class="fixed bottom-0 right-0 m-3">
       <Clock />
-    </div>
-    <v-navigation-drawer app v-model="drawer" :temporary="true">
-      <!-- <LanguageSwitcher @language-changed="changeLanguage" /> -->
         <LanguageSwitcher />
-      <!-- <v-switch
-        v-model="darkMode"
-        label="Dark Mode"
-        @change="toggleDarkMode"
-      ></v-switch> -->
-      <v-list v-if="isXs" v-model="drawerTab" dense>
-        <v-list-item @click="navigate('sobre-mim', 'one')"
-          >Sobre Mim</v-list-item
-        >
-        <v-list-item @click="navigate('project', 'two')">Projetos</v-list-item>
-        <v-list-item @click="navigate('expertise', 'three')"
-          >Conhecimentos</v-list-item
-        >
-        <v-list-item @click="navigate('expirience', 'four')"
-          >Experiência</v-list-item
-        >
-        <v-list-item @click="navigate('contact', 'five')">Contato</v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <main class="mt-5">
-      <section id="sobre-mim"><aboutme /></section>
-      <section id="project"><myprojects /></section>
-      <section id="expertise"><expertise /></section>
-      <section id="expirience"><experience /></section>
-      <section id="contact"><contact /></section>
-      <Footer />
+    </div>
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40" v-if="drawer" @click="drawer = false"></div>
+    <aside class="fixed inset-y-0 left-0 w-64 h-full bg-[#111827] z-50 transform transition-transform duration-300"
+      :class="{ '-translate-x-full': !drawer, 'translate-x-0': drawer }">
+
+      <nav class="flex flex-col space-y-4 p-4">
+      
+        <button @click="navigate('sobre-mim', 'one')" class="text-left">
+          Sobre Mim
+        </button>
+        <button @click="navigate('project', 'two')" class="text-left">
+          Projetos
+        </button>
+        <button @click="navigate('expertise', 'three')" class="text-left">
+          Conhecimentos
+        </button>
+        <button @click="navigate('expirience', 'four')" class="text-left">
+          Experiência
+        </button>
+        <button @click="navigate('contact', 'five')" class="text-left">
+          Contato
+        </button>
+      </nav>
+    </aside>
+    <main class="mt-5 space-y-40">
+      <section id="sobre-mim" class="h-screen flex items-center justify-center bg-fixed bg-cover"
+        style="background-image: url('/path/to/your/image.jpg')">
+        <aboutme />
+
+      </section>
+      <section id="project" class="h-screen flex items-center justify-center bg-fixed bg-cover"
+        style="background-image: url('/path/to/your/image.jpg')">
+        <myprojects />
+      </section>
+      <section id="expertise" class="h-screen flex items-center justify-center bg-fixed bg-cover"
+        style="background-image: url('/path/to/your/image.jpg')">
+        <expertise />
+      </section>
+      <section id="expirience" class="h-screen flex items-center justify-center bg-fixed bg-cover"
+        style="background-image: url('/path/to/your/image.jpg')">
+        <experience />
+      </section>
+      <section id="contact" class="h-screen flex items-center justify-center bg-fixed bg-cover"
+        style="background-image: url('/path/to/your/image.jpg')">
+        <contact />
+      </section>
+      <Footer></Footer>
     </main>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -75,9 +74,11 @@ import experience from "../components/experience.vue";
 import Expertise from "../components/expertise.vue";
 import Footer from "../components/footer.vue";
 import Myprojects from "../components/Myprojects.vue";
-import LanguageSwitcher from "../components/LanguageSwitcher.vue";
 import Clock from "../components/Clock.vue";
-import { ref, onMounted } from "vue";
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
+const t = (key, ...args) => {
+  return translate(key, ...args);
+};
 export default {
   components: {
     aboutme,
@@ -86,35 +87,44 @@ export default {
     Myprojects,
     experience,
     Footer,
-    LanguageSwitcher,
     Clock,
+    LanguageSwitcher
   },
   name: "DefaultLayout",
-
-  data: () => ({
-    drawer: false,
-    drawerTab: null,
-    tab: null,
-    isXs: false,
-  }),
+  data() {
+    return {
+      drawer: false,
+      menuItems: [
+        { id: 1, label: "About-me", section: "sobre-mim" },
+        { id: 2, label: "Projetos", section: "project" },
+        { id: 3, label: "Conhecimentos", section: "expertise" },
+        { id: 4, label: "Experiência", section: "expirience" },
+        { id: 5, label: "Contato", section: "contact" },
+      ],
+      activeItem: null,
+    };
+  },
   methods: {
-    updateXs() {
-      this.isXs = window.innerWidth <= 930;
+    setActive(item) {
+      this.activeItem = item;
+      this.scrollToSection(item.section);
+    },
+    scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
     },
     navigate(sectionId, tabValue) {
       this.drawer = false;
-      this.tab = tabValue;
-      this.scrollTo(sectionId);
+      this.setActive(this.menuItems.find((item) => item.section === sectionId));
     },
-    scrollTo(sectionId) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        const top = element.offsetTop;
-        window.scrollTo({ top, behavior: "smooth" });
-      }
+    updateXs() {
+      this.isXs = window.innerWidth <= 930;
     },
   },
   mounted() {
+    this.activeItem = this.menuItems[0]; // Set the default active item
     window.addEventListener("resize", this.updateXs);
     this.updateXs();
   },
@@ -125,56 +135,55 @@ export default {
 </script>
 
 <style scoped>
-.v-app{
-  background-color: rgb(26, 26, 26);
-  color: white;
-}
-.sticky-container {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: inherit;
-}
-.clock-container {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 10px;
-}
 .icon-menu {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: rgb(65, 168, 33);
   margin: 0.5em;
+
+  @media (max-width: 600px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-.sticky-tabs {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: inherit;
+.bg-gray-900 {
+  background-color: #1a202c;
+  /* Tailwind gray-900 */
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-purple-500 {
+  color: #805ad5;
+  /* Tailwind purple-500 */
+}
+
+.bg-purple-500 {
+  background-color: #805ad5;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.tracking-wide {
+  letter-spacing: 0.05em;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
 }
 
 section {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 10em;
-}
-
-img {
-  filter: blur(5px);
-}
-
-#sobre-mim,
-#project,
-#expertise,
-#expirience,
-#contact {
   background-attachment: fixed;
   background-size: cover;
 }

@@ -1,15 +1,33 @@
-
-
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: [
-    "vuetify/lib/styles/main.sass",
-    "@mdi/font/css/materialdesignicons.min.css",
-  ],
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
+  ssr: true,
+  components: true,
+  devServer: {
+    port: 3030,
+  },
   build: {
     transpile: ["vuetify"],
   },
-  plugins: [
-    { src: '~/plugins/vue-mq.js', ssr: false }
-  ],
-
+  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/color-mode"],
+ 
+  tailwindcss: {
+    configPath: "tailwind.config",
+    exposeConfig: {
+      level: 2,
+    },
+    config: {},
+    viewer: true,
+  },
+  colorMode: {
+    preference: "system",
+    dataValue: "theme",
+    classSuffix: "",
+  },
 });

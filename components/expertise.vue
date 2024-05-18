@@ -1,43 +1,45 @@
 <template>
-  <v-container fluid>
-    <v-row class="text-center mb-5">
-      <v-col>
-       <v-app-bar-title class="title">Expertise</v-app-bar-title>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col v-for="skill in skills" :key="skill.name" cols="12" sm="6" md="4" class="d-flex flex-column align-center justify-center mb-4">
-        <div class="font-weight-bold">{{ skill.name }}</div>
-        <v-progress-circular
-          :rotate="-90"
-          :size="progressSize"
-          :width="15"
-          :model-value="getLevelValue(skill.level)"
-          :color="skill.color"
-        >
-          {{ skill.level }}
-        </v-progress-circular>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-5">
+      <h1 class="text-4xl font-bold text-blue-400">Expertise</h1>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div v-for="skill in skills" :key="skill.name" class="flex flex-col items-center mb-4">
+        <div class="font-bold text-lg mb-2">{{ skill.name }}</div>
+        <div class="relative flex items-center justify-center"
+          :style="{ width: progressSize + 'px', height: progressSize + 'px' }">
+          <svg :width="progressSize" :height="progressSize">
+            <circle class="text-white-300" :stroke-width="15" :r="(progressSize / 2) - 15" :cx="progressSize / 2"
+              :cy="progressSize / 2" fill="none" stroke="currentColor" />
+            <circle :stroke="getColor(skill.color)" :stroke-width="15" :r="(progressSize / 2) - 15"
+              :cx="progressSize / 2" :cy="progressSize / 2" fill="none"
+              stroke-dasharray="calc(2 * 3.141592 * (progressSize / 2 - 15))"
+              :stroke-dashoffset="`calc(2 * 3.141592 * (progressSize / 2 - 15) * (1 - ${getLevelValue(skill.level) / 100}))`"
+              stroke-linecap="round" :style="{ transition: 'stroke-dashoffset 1s ease-in-out' }" />
+          </svg>
+          <span class="absolute text-2xl font-semibold text-white-700">{{ skill.level }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
-import skills from '../skills';  // Ajuste o caminho conforme necessário
+import { ref, onMounted } from 'vue';
+import skills from '../skills'; // Ajuste o caminho conforme necessário
 
 export default {
-  name: "Expertise",
+  name: 'Expertise',
   data() {
     return {
       skills
     };
   },
   setup() {
-    const progressSize = ref(70);  
+    const progressSize = ref(70);
 
     onMounted(() => {
-      if (process.client) {
+      if (typeof window !== 'undefined') {
         const isLargeScreen = window.matchMedia('(min-width: 1200px)').matches;
         progressSize.value = isLargeScreen ? 100 : 70;
       }
@@ -48,23 +50,41 @@ export default {
       return levelValue;
     }
 
+    function getColor(colorName) {
+      const colors = {
+        green: '#10B981',
+        blue: '#3B82F6',
+        orange: '#F97316',
+        yellow: '#F59E0B',
+      };
+      return colors[colorName] || '#374151'; // Default to gray if color not found
+    }
+
     return {
       progressSize,
-      getLevelValue
-    }
-  },
+      getLevelValue,
+      getColor
+    };
+  }
 };
 </script>
 
 <style scoped>
-.title {
-  font-size: 2em;
-  margin-bottom: 16px;
-   color: #89c1fa;
-}
-.font-weight-bold {
+.font-bold {
   font-size: 1.2em;
   text-align: center;
   margin-bottom: 10px;
+}
+
+.text-blue-400 {
+  color: #89c1fa;
+}
+
+.text-gray-300 {
+  color: #d1d5db;
+}
+
+.text-gray-700 {
+  color: #374151;
 }
 </style>

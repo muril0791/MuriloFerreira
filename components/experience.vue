@@ -1,33 +1,29 @@
 <template>
-  <v-container>
-     <v-app-bar-title class="title">Experiences</v-app-bar-title>
-    <v-row>
-      <v-col class="custom-timeline">
-        <v-timeline direction="horizontal">
-          <v-timeline-item
-            v-for="experience in experiences"
-            :key="experience.year"
-            :color="experience.color"
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-6 text-center text-blue-400">Experiences</h1>
+    <div class="overflow-x-auto whitespace-nowrap">
+      <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0">
+        <div 
+          v-for="(experience, index) in experiences" 
+          :key="experience.year" 
+          class="timeline-item flex-shrink-0"
+          :class="index % 2 === 0 ? 'order-1 lg:order-none' : 'order-2 lg:order-none'"
+        >
+          <div class="timeline-opposite mb-2 text-gray-600 text-center">
+            {{ experience.year }}
+          </div>
+          <div 
+            class="timeline-content bg-white shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105 cursor-pointer"
+            :class="experience.color"
           >
-            <template v-slot:opposite>
-              {{ experience.year }}
-            </template>
-            <v-card  :color="`${experiences.colors}`">
-              <v-card-title :color="experience.color" class="white--text">
-                {{ experience.title }}
-              </v-card-title>
-              <v-card-subtitle>
-                {{ experience.company }}
-              </v-card-subtitle>
-              <v-card-text>
-                {{ experience.description }}
-              </v-card-text>
-            </v-card>
-          </v-timeline-item>
-        </v-timeline>
-      </v-col>
-    </v-row>
-  </v-container>
+            <h3 class="text-lg font-bold mb-2 text-white">{{ experience.title }}</h3>
+            <h4 class="text-md mb-2 text-gray-800">{{ experience.company }}</h4>
+            <p class="text-sm text-gray-600">{{ experience.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -38,32 +34,31 @@ export default {
         {
           year: 2020,
           title: "Desenvolvedor Java Jr",
-          company: "EDS Sitemas",
-          description: "Trabalhei em sistemas simples na linguame Java",
-          color: "blue",
+          company: "EDS Sistemas",
+          description: "Trabalhei em sistemas simples na linguagem Java",
+          color: "bg-blue-500",
         },
         {
           year: 2021,
           title: "Desenvolvedor Front-end Jr",
           company: "Solvian IOT",
-          description: "Trabalhei com Vue.js e Ruby on rails, em sistemas de controle de sensores e desenvolvendo novas features",
-          color: "blue",
+          description: "Trabalhei com Vue.js e Ruby on Rails, em sistemas de controle de sensores e desenvolvendo novas features",
+          color: "bg-green-500",
         },
         {
           year: 2022,
           title: "Desenvolvedor Front-end Jr/Pleno",
           company: "TDA Dev",
-          description: "Trabalhei com Vue.js no desenvolvimentos de um backoffice para controle de jogos online no estilo gambling",
-          color: "blue",
+          description: "Trabalhei com Vue.js no desenvolvimento de um backoffice para controle de jogos online no estilo gambling",
+          color: "bg-red-500",
         },
         {
           year: 2023,
           title: "Desenvolvedor Front-end Pleno",
           company: "Jogo Global",
           description: "Trabalhei com Vue.js, React.js, Pixi.js e outros. Desenvolvedor de jogos para casinos online, como crash games, mines e double",
-          color: "blue",
+          color: "bg-purple-500",
         },
-        
       ],
     };
   },
@@ -71,14 +66,59 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  font-size: 2em;
-  margin-bottom: 26px;
-   color: #89c1fa;
+.container {
+  max-width: 100%;
+}
+
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
+  margin-bottom: 20px;
+}
+
+.timeline-opposite {
+  font-size: 1em;
   text-align: center;
 }
-.custom-timeline {
-  overflow-x: auto;
-  white-space: nowrap;
+
+.timeline-content {
+  transition: transform 0.3s;
+}
+
+.timeline-content:hover {
+  transform: scale(1.05);
+}
+
+.bg-blue-500 {
+  background-color: #3b82f6;
+  /* Tailwind blue-500 */
+}
+
+.bg-green-500 {
+  background-color: #10b981;
+  /* Tailwind green-500 */
+}
+
+.bg-red-500 {
+  background-color: #ef4444;
+  /* Tailwind red-500 */
+}
+
+.bg-purple-500 {
+  background-color: #8b5cf6;
+  /* Tailwind purple-500 */
+}
+
+@media (max-width: 640px) {
+  .timeline-item {
+    min-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .timeline-opposite {
+    font-size: 1.25em;
+  }
 }
 </style>

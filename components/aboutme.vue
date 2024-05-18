@@ -1,149 +1,76 @@
 <template>
-  <v-container class="v-container">
-    <v-row class="justify-center text-center">
-      <v-col cols="12" md="6">
-        <v-app-bar-title class="title">About me</v-app-bar-title>
-        <v-avatar class="avatar" color="primary" size="250">
-          <img src="../assets/MyPic.jpeg" />
-        </v-avatar>
-
-        <v-list-item
-          color="white"
-          title="Murilo Ferreira"
-          subtitle="Game Developer"
-        ></v-list-item>
-
-        <v-card-text color="white" text--white>
-          Olá! Meu nome é Murilo Ferreira e sou um desenvolvedor.
-          Tenho uma ampla experiência em desenvolvimento, bem como em
-          desenvolver jogos interativos e envolventes. Estou sempre em busca de
-          novos desafios e oportunidades para expandir meu conhecimento e
-          habilidades.
-        </v-card-text>
-        <v-btn text color="green-accent-4" variant="outlined" class="mr-2" @click="downloadCV">
-          <v-icon>mdi-download</v-icon>
-          Baixar CV
-        </v-btn>
-        <v-btn text color="deep-purple-accent-4" variant="outlined" @click="dialog = true">Mais informações</v-btn>
-        <v-dialog v-model="dialog" max-width="900px">
-          <v-card>
-            <v-card-title>Mais Informações</v-card-title>
-            <v-card-text>
-              Tenho uma formação sólida em programação e uma paixão por criar
-              experiências digitais memoráveis. Além disso, sou bem versado em
-              várias linguagens de programação, incluindo Java, C++ e Python.
-              Também tenho uma boa compreensão dos princípios de design de
-              UX/UI, o que me permite criar interfaces de usuário intuitivas e
-              agradáveis.
-              <v-divider class="my-4"></v-divider>
-              <v-row>
-                <v-col
-                  v-for="(skill, index) in skills"
-                  :key="index"
-                  cols="12"
-                  sm="4"
-                >
-                  <v-chip class="ma-2">{{ skill }}</v-chip>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-          <v-footer fixed class="text-center">
-            <v-col class="ma-2 pa-2" cols="12">
-              <v-btn icon :href="socialMedia.linkedin" target="_blank">
-                <v-icon>mdi-linkedin</v-icon>
-              </v-btn>
-              <v-btn icon :href="socialMedia.github" target="_blank">
-                <v-icon>mdi-github</v-icon>
-              </v-btn>
-            </v-col>
-          </v-footer>
-        </v-dialog>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="text-white min-h-screen flex flex-col items-center py-12">
+    <h1 class="text-4xl font-bold text-blue-400 mb-8">{{ t('about_me') }}</h1>
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-md mb-4">
+      <img src="../assets/MyPic.jpeg" alt="Murilo Ferreira" class="w-full h-full object-cover" />
+    </div>
+    <h2 class="text-2xl font-semibold">Murilo Ferreira</h2>
+    <p class="text-gray-400 mb-6">{{ t('game_developer') }}</p>
+    <p class="text-center px-4 max-w-2xl mb-8">
+      {{ t('introduction') }}
+    </p>
+    <div class="flex space-x-4 mb-4">
+      <button @click="downloadCV"
+        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+        {{ t('download_cv') }}
+      </button>
+      <button @click="dialog = true" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">{{
+        t('more_info') }}</button>
+    </div>
+    <div v-if="dialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white text-black rounded-lg shadow-lg p-6 max-w-lg w-full">
+        <h3 class="text-2xl font-semibold mb-4">{{ t('more_info_title') }}</h3>
+        <p class="mb-4">
+          {{ t('more_info_description') }}
+        </p>
+        <hr class="my-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <span v-for="(skill, index) in skills" :key="index" class="bg-gray-200 text-black px-4 py-2 rounded shadow">
+            {{ skill }}
+          </span>
+        </div>
+        <div class="flex justify-end mt-6">
+          <button @click="dialog = false"
+            class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">{{ t('close') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watchEffect } from 'vue';
+import { translate, state } from '@/Translation/lang';
+
+const t = (key, ...args) => {
+  return translate(key, ...args);
+};
 
 const dialog = ref(false);
 const skills = ref([
-  "JavaScript",
-  "Vue.js",
-  "Networking",
-  "Game Development",
-  "Java",
-  "C++",
-  "Python",
-  "UX/UI Design",
+  'JavaScript',
+  'Vue.js',
+  'Networking',
+  'Game Development',
+  'Java',
+  'C++',
+  'Python',
+  'UX/UI Design',
 ]);
-const socialMedia = ref({
-  linkedin: "https://www.linkedin.com/in/your-profile",
-  github: "https://github.com/your-profile",
-  // ... outros links de redes sociais ...
-});
 
 const downloadCV = () => {
-  window.open("path/to/your-cv.pdf", "_blank");
+  window.open('path/to/your-cv.pdf', '_blank');
 };
 
-const showMoreInfo = () => {
-  dialog.value = true;
-};
+watchEffect(() => {
+  t.value = translate;
+});
 </script>
 
 <style scoped>
-
-.title {
-  font-size: 2em;
-  margin-bottom: 16px;
-  color: #89c1fa;
-}
-
-.v-container {
-  padding: 16px;
-}
-
-.avatar {
-  margin: 20px auto;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.avatar > img {
-  width: 250px;
-  height: auto;
-  border-radius: 50%;
-}
-
-.text-white {
-  color: #ffffff !important;
-}
-
-.v-card-subtitle {
-  font-size: 1.2em;
-  color: #7f8c8d;
-  margin-top: -10px;
-}
-
-.v-card-text {
-  color: #ffffff;
-  margin: 20px 0;
-}
-
-.v-btn {
-  margin: 10px 0;
-}
-
-.v-dialog .v-card {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.v-footer {
-  background-color: #ecf0f1;
-}
-
-.social-icons > v-btn {
-  margin: 0 5px;
-}
+/* Adicione qualquer estilo adicional aqui */
 </style>

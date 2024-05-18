@@ -1,12 +1,12 @@
 export default [
   {
     name: "Vue.js",
-    level: 4,
+    level: 5,
     color: "green",
   },
   {
     name: "React",
-    level: 3,
+    level: 4,
     color: "blue",
   },
   {
