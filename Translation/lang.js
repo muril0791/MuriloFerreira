@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { reactive, watchEffect } from "vue";
 import enUS from "./en-us.json";
 import ptBR from "./pt-br.json";
 
@@ -8,7 +8,7 @@ const logger = {
 };
 
 export const POSSIBLE_LANGUAGES = ["pt-br", "en-us"];
-let languageData = reactive({}); // Tornar reativo
+const languageData = reactive({});
 
 export const state = reactive({
   selectedLang: "pt-br", // Define pt-br como idioma inicial
@@ -46,3 +46,19 @@ export function translate(key, ...args) {
 
 // Inicializa com o idioma padrão
 updateLang(state.selectedLang);
+
+// Watch for changes in selectedLang and update translations
+watchEffect(() => {
+  // Atualiza a tradução quando o idioma muda
+  translate.value = (key, ...args) => {
+    if (!languageData[key]) return `{${key}}`;
+    let text = languageData[key];
+    if (text === undefined) return `{${key}}`;
+
+    for (let x = 0; x < args.length; x++) {
+      text = text.replace(`{${x}}`, args[x]);
+    }
+
+    return text;
+  };
+});
