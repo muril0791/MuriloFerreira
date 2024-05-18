@@ -63,6 +63,7 @@ const skills = ref([
 ]);
 
 const downloadCV = () => {
+
   window.open('path/to/your-cv.pdf', '_blank');
 };
 

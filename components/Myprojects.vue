@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto px-4 py-8">
     <div class="text-center my-5">
-      <h1 class="text-4xl font-bold text-blue-400">Projects</h1>
+      <h1 class="text-4xl font-bold text-blue-400">{{t('projects')}}</h1>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-3 justify-center">
       <div v-for="project in displayedProjects" :key="project.title" class="flex flex-col items-center mb-4">
@@ -10,7 +10,7 @@
           <img :src="project.image" class="project-image w-full h-full object-cover rounded-lg">
           <div
             class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-            <h2 class="text-white text-lg">{{ project.title }}</h2>
+            <h2 class="text-white text-lg">{{ t(project.title) }}</h2>
           </div>
         </div>
       </div>
@@ -20,10 +20,10 @@
       <div class="bg-gray-900 text-white rounded-lg overflow-hidden max-w-lg w-full">
         <div class="p-4">
           <button @click="dialog = false" class="float-right text-gray-400 hover:text-white">&times;</button>
-          <h2 class="text-2xl font-bold mb-4">{{ activeProject.title }}</h2>
+          <h2 class="text-2xl font-bold mb-4">{{ t(activeProject.title) }}</h2>
           <img :src="activeProject.image" class="dialog-img w-full h-full object-cover rounded-lg mb-4">
           <p class="mb-4">{{ activeProject.description }}</p>
-          <a :href="activeProject.link" target="_blank" class="text-blue-500 underline">Link para o projeto</a>
+          <a :href="activeProject.link" target="_blank" class="text-blue-500 underline">{{ t('project_link')}}</a>
         </div>
       </div>
     </div>
@@ -37,7 +37,11 @@ import { ref, computed } from 'vue';
 import slotImage from '../assets/SlotImage.webp';
 import spaceinvadersImage from '../assets/spaceinvadersImage.webp'
 import minesImage from '../assets/minesImage.webp'
+import { translate, state } from '@/Translation/lang';
 
+const t = (key, ...args) => {
+  return translate(key, ...args);
+};
 const dialog = ref(false);
 const activeProject = ref({});
 const projects = ref([
@@ -45,7 +49,7 @@ const projects = ref([
     title: "Game",
     image: slotImage,
     link: "https://link_para_jogo1.com",
-    description: "Um jogo inovador que oferece uma experiência imersiva e divertida."
+    description: "Um jogo inovador que oferece uma experiência imersiva e divertida"
   },
   {
     title: "Teste1",
@@ -67,6 +71,7 @@ const openDialog = (project) => {
   activeProject.value = project;
   dialog.value = true;
 };
+
 </script>
 
 <style scoped>

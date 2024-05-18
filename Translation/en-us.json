@@ -1,8 +1,14 @@
 {
+  "about_me": "About Me",
+  "projects": "Projects",
+  "contact": "Contact",
+  "expertise": "Expertise",
+  "experience": "Experience",
+  "skills":" Skills",
+
   "language": "Language",
   "pt-br": "Portuguese (Brazil)",
   "en-us": "English (US)",
-  "about_me": "About Me",
   "game_developer": "Game Developer",
   "introduction": "Hello! My name is Murilo Ferreira and I am a developer. I have extensive experience in development, as well as in developing interactive and engaging games. I am always looking for new challenges and opportunities to expand my knowledge and skills.",
   "download_cv": "Download CV",
@@ -10,5 +16,9 @@
   "more_info_title": "More Information",
   "more_info_description": "I have a solid background in programming and a passion for creating memorable digital experiences. Additionally, I am well-versed in various programming languages including Java, C++, and Python. I also have a good understanding of UX/UI design principles, which allows me to create intuitive and pleasant user interfaces.",
   "close": "Close",
-  "teste":"go"
+  "teste":"go",
+
+  "Um jogo inovador que oferece uma experiência imersiva e divertida.": "An innovative game that offers an immersive and enjoyable experience.",
+  "Website desenvolvido com tecnologias modernas para fornecer a melhor experiência ao usuário.": "Website developed with modern technologies to provide the best user experience.",
+  "Projeto focado em soluções de software eficientes e escaláveis.": "Project focused on efficient and scalable software solutions."
 }

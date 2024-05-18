@@ -1,20 +1,42 @@
 <template>
-    <form style="width: 100%;">
-        <label :style="labelStyle">{{ t('language') }}</label>
-        <div :style="languageControlStyle">
-            <div v-for="lang in POSSIBLE_LANGUAGES" :key="lang">
-                <input type="radio" :id="lang" :value="lang" v-model="selectedLang" @change="handleLangChange">
-                <label :for="lang">{{ t(lang) }}</label>
+    <div class="relative inline-block text-left left 0">
+        <div>
+            <button @click="toggleDropdown" type="button"
+                class="inline-flex justify-center w-22 rounded-full text-white pa-1 bg-tranparent text-lg font-medium hover:bg-gray-800 focus:outline-none"
+                id="menu-button" aria-expanded="true" aria-haspopup="true">
+                <img :src="currentFlag" class="w-8 h-8 mr-2" />
+            </button>
+        </div>
+
+        <div v-if="dropdownOpen" :class="dropdownClasses" role="menu" aria-orientation="vertical"
+            aria-labelledby="menu-button" tabindex="-1">
+            <div class="py-1" role="none">
+                <a v-for="lang in POSSIBLE_LANGUAGES" :key="lang" @click="handleLangChange(lang)"
+                    class="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100" role="menuitem"
+                    tabindex="-1">
+                    <img :src="getFlag(lang)" class="inline w-5 h-5 mr-2" /> {{ t(lang) }}
+                </a>
             </div>
         </div>
-    </form>
+    </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { POSSIBLE_LANGUAGES, state, translate, updateLang } from '@/Translation/lang';
+import ptBrFlag from '@/assets/flags/pt-br.png';
+import enUsFlag from '@/assets/flags/us-en.png';
 
+const dropdownOpen = ref(false);
 const selectedLang = ref(state.selectedLang);
+
+const toggleDropdown = () => {
+    dropdownOpen.value = !dropdownOpen.value;
+};
+
+const closeDropdown = () => {
+    dropdownOpen.value = false;
+};
 
 const safeLocalStorageGetItem = (key) => {
     try {
@@ -33,30 +55,37 @@ const safeLocalStorageSetItem = (key, value) => {
     }
 };
 
-const labelStyle = {
-    fontWeight: 'bold',
-    fontSize: '1.2em',
-    paddingLeft: '8px',
-};
-
-const languageControlStyle = {
-    margin: '0.5em 2.5em',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    fontSize: '1.2em',
-    marginBottom: '10px',
-};
-
-const handleLangChange = () => {
-    updateLang(selectedLang.value);
-    safeLocalStorageSetItem('selectedLang', selectedLang.value);
+const handleLangChange = (lang) => {
+    updateLang(lang);
+    selectedLang.value = lang;
+    safeLocalStorageSetItem('selectedLang', lang);
+    closeDropdown();
 };
 
 const t = (key, ...args) => {
     return translate(key, ...args);
 };
 
+const getFlag = (lang) => {
+    switch (lang) {
+        case 'pt-br':
+            return ptBrFlag;
+        case 'en-us':
+            return enUsFlag;
+        default:
+            return '';
+    }
+};
+
+const currentFlag = computed(() => getFlag(selectedLang.value));
+
+const dropdownClasses = computed(() => {
+    return [
+        'absolute right-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none',
+        'sm:origin-top-right sm:mt-2', // Em telas pequenas (sm), origin-top-right e abre para baixo
+        'md:origin-bottom-right md:bottom-12' // Em telas médias (md) ou maiores, origin-bottom-right e abre para cima
+    ].join(' ');
+});
 onMounted(() => {
     const lang = safeLocalStorageGetItem('selectedLang');
     if (lang) {
@@ -74,7 +103,5 @@ watch(() => state.selectedLang, (newLang) => {
 </script>
 
 <style scoped>
-input[type="radio"] {
-    margin-right: 10px;
-}
+/* Tailwind CSS classes used directly in the template */
 </style>

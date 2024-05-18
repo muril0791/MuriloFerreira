@@ -1,11 +1,11 @@
 <template>
   <div class="container mx-auto px-4 py-8">
     <div class="text-center mb-5">
-      <h1 class="text-4xl font-bold text-blue-400">Expertise</h1>
+      <h1 class="text-4xl font-bold text-blue-400">{{ t('skills') }}</h1>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div v-for="skill in skills" :key="skill.name" class="flex flex-col items-center mb-4">
-        <div class="font-bold text-lg mb-2">{{ skill.name }}</div>
+        <div class="font-bold text-lg mb-2">{{skill.name}}</div>
         <div class="relative flex items-center justify-center"
           :style="{ width: progressSize + 'px', height: progressSize + 'px' }">
           <svg :width="progressSize" :height="progressSize">
@@ -24,49 +24,42 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
-import skills from '../skills'; // Ajuste o caminho conforme necessário
+<script setup>
+import { ref, onMounted, watch } from 'vue';
+import { translate, state } from '@/Translation/lang';
+import skills from '../skills';
 
-export default {
-  name: 'Expertise',
-  data() {
-    return {
-      skills
-    };
-  },
-  setup() {
-    const progressSize = ref(70);
-
-    onMounted(() => {
-      if (typeof window !== 'undefined') {
-        const isLargeScreen = window.matchMedia('(min-width: 1200px)').matches;
-        progressSize.value = isLargeScreen ? 100 : 70;
-      }
-    });
-
-    function getLevelValue(level) {
-      const levelValue = typeof level === 'number' && level <= 5 && level >= 0 ? level * 20 : 0;
-      return levelValue;
-    }
-
-    function getColor(colorName) {
-      const colors = {
-        green: '#10B981',
-        blue: '#3B82F6',
-        orange: '#F97316',
-        yellow: '#F59E0B',
-      };
-      return colors[colorName] || '#374151'; // Default to gray if color not found
-    }
-
-    return {
-      progressSize,
-      getLevelValue,
-      getColor
-    };
-  }
+const t = (key, ...args) => {
+  return translate(key, ...args);
 };
+
+const progressSize = ref(70);
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    const isLargeScreen = window.matchMedia('(min-width: 1200px)').matches;
+    progressSize.value = isLargeScreen ? 100 : 70;
+  }
+});
+
+function getLevelValue(level) {
+  const levelValue = typeof level === 'number' && level <= 5 && level >= 0 ? level * 20 : 0;
+  return levelValue;
+}
+
+function getColor(colorName) {
+  const colors = {
+    green: '#10B981',
+    blue: '#3B82F6',
+    orange: '#F97316',
+    yellow: '#F59E0B',
+  };
+  return colors[colorName] || '#374151';
+}
+
+watch(() => state.selectedLang, () => {
+});
+
 </script>
 
 <style scoped>
