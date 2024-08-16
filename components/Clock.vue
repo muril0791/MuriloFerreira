@@ -9,13 +9,24 @@ export default {
   name: 'Clock',
   data() {
     return {
-      currentTime: new Date().toLocaleTimeString()
+      currentTime: this.getCurrentTimeWithTimeZone(),
     };
   },
   mounted() {
     setInterval(() => {
-      this.currentTime = new Date().toLocaleTimeString();
+      this.currentTime = this.getCurrentTimeWithTimeZone();
     }, 1000);
+  },
+  methods: {
+    getCurrentTimeWithTimeZone() {
+      const options = {
+        timeZoneName: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      };
+      return new Date().toLocaleTimeString([], options);
+    }
   }
 };
 </script>

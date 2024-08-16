@@ -1,24 +1,19 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-6 py-8 ">
     <h1 class="text-4xl font-bold mb-6 text-center text-blue-400">Experiences</h1>
-    <div class="overflow-x-auto whitespace-nowrap">
+    <div class="overflow-x-auto">
       <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0">
-        <div 
-          v-for="(experience, index) in experiences" 
-          :key="experience.year" 
-          class="timeline-item flex-shrink-0"
-          :class="index % 2 === 0 ? 'order-1 lg:order-none' : 'order-2 lg:order-none'"
-        >
+        <div v-for="(experience, index) in experiences" :key="experience.year" class="timeline-item flex-shrink-0"
+          :class="index % 2 === 0 ? 'order-1 lg:order-none' : 'order-2 lg:order-none'">
           <div class="timeline-opposite mb-2 text-gray-600 text-center">
             {{ experience.year }}
           </div>
-          <div 
-            class="timeline-content bg-white shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105 cursor-pointer"
-            :class="experience.color"
-          >
+          <div
+            class="timeline-content bg-white shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105 cursor-pointer max-w-full"
+            :class="experience.color">
             <h3 class="text-lg font-bold mb-2 text-white">{{ experience.title }}</h3>
             <h4 class="text-md mb-2 text-gray-800">{{ experience.company }}</h4>
-            <p class="text-sm text-gray-600">{{ experience.description }}</p>
+            <p class="text-sm text-white-600 break-words max-w-full">{{ experience.description }}</p>
           </div>
         </div>
       </div>

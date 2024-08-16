@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-gray-800 text-center flex flex-col items-center p-4">
+  <footer class="bg-gray-800 text-center flex flex-col items-center p-4 mt-0">
     <div class="flex space-x-4 mb-2">
       <a v-for="icon in icons" :key="icon.id" :href="icon.link" target="_blank" class="text-white hover:text-gray-400">
         <i :class="['mdi', icon.name, 'text-2xl']"></i>
