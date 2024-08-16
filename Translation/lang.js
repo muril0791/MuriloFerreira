@@ -11,7 +11,7 @@ export const POSSIBLE_LANGUAGES = ["pt-br", "en-us"];
 const languageData = reactive({});
 
 export const state = reactive({
-  selectedLang: "pt-br", // Define pt-br como idioma inicial
+  selectedLang: "pt-br",
 });
 
 export function updateLang(language) {

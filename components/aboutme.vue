@@ -42,16 +42,16 @@
   </div>
 </template>
 
-<script setup>
-import { ref, watchEffect } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
 import { translate, state } from '@/Translation/lang';
 
-const t = (key, ...args) => {
+const t = (key: string, ...args: any[]) => {
   return translate(key, ...args);
 };
 
 const dialog = ref(false);
-const skills = ref([
+const skills = ref < string[] > ([
   'JavaScript',
   'Vue.js',
   'Networking',
@@ -62,14 +62,18 @@ const skills = ref([
   'UX/UI Design',
 ]);
 
-const downloadCV = () => {
+const downloadCV = (): void => {
+  const cvLang = state.selectedLang === "en-us" ? "enUS" : "ptBR";
+  const fileUrl = new URL(`assets/CV/Curriculo2024-${cvLang}.pdf`, import.meta.url).href;
 
-  window.open('path/to/your-cv.pdf', '_blank');
+  const link = document.createElement('a');
+  link.href = fileUrl;
+  link.download = `Curriculo2024-${cvLang}.pdf`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
 
-watchEffect(() => {
-  t.value = translate;
-});
 </script>
 
 <style scoped>
