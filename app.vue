@@ -2,7 +2,7 @@
   <div class="bg-[#111827] text-white min-h-screen flex flex-col">
     <header class="sticky top-0 z-50 bg-inherit">
       <button class="icon-menu md:hidden" @click="drawer = !drawer">
-        <img class="w-8 h-8" src="@/assets/menuIcon.png" />
+        <img class="colorSvg" src="@/assets/icons-menu.svg" />
       </button>
       <nav class="hidden md:flex justify-around mt-2 h-12">
         <button
@@ -59,7 +59,7 @@
         id="project"
         class="flex items-center justify-center bg-fixed bg-cover"
       >
-        <myprojects />
+        <projects />
       </section>
       <section
         id="expertise"
@@ -91,7 +91,7 @@ import Contact from "../components/contact.vue";
 import experience from "../components/experience.vue";
 import Expertise from "../components/expertise.vue";
 import Footer from "../components/footer.vue";
-import Myprojects from "../components/Myprojects.vue";
+import Projects from "../components/Projects.vue";
 import Clock from "../components/Clock.vue";
 import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
 import { translate, state } from "@/Translation/lang";
@@ -101,7 +101,7 @@ export default {
     aboutme,
     Expertise,
     Contact,
-    Myprojects,
+    Projects,
     experience,
     Footer,
     Clock,
@@ -167,13 +167,19 @@ export default {
 
 <style scoped>
 .icon-menu {
-  width: 50px;
-  height: 50px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background-color: rgb(65, 168, 33);
   margin: 0.5em;
+  padding: 10px;
 }
-
+.colorSvg{
+  fill: white;
+  width: 22px;
+  height: 22px;
+  color: white;
+}
 section {
   background-attachment: fixed;
   background-size: cover;
