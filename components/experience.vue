@@ -1,19 +1,40 @@
 <template>
-  <div class="container mx-auto px-6 py-8 ">
-    <h1 class="text-4xl font-bold mb-6 text-center text-blue-400">Experiences</h1>
+  <div class="container mx-auto px-6 py-8">
+    <h1 class="text-4xl font-bold mb-6 text-center text-blue-400">
+      Experiences
+    </h1>
     <div class="overflow-x-auto">
-      <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0">
-        <div v-for="(experience, index) in experiences" :key="experience.year" class="timeline-item flex-shrink-0"
-          :class="index % 2 === 0 ? 'order-1 lg:order-none' : 'order-2 lg:order-none'">
+      <div
+        class="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0"
+      >
+        <div
+          v-for="(experience, index) in experiences"
+          :key="experience.year"
+          class="timeline-item flex-shrink-0"
+          :class="
+            index % 2 === 0 ? 'order-1 lg:order-none' : 'order-2 lg:order-none'
+          "
+        >
           <div class="timeline-opposite mb-2 text-gray-600 text-center">
             {{ experience.year }}
           </div>
           <div
             class="timeline-content bg-white shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105 cursor-pointer max-w-full"
-            :class="experience.color">
-            <h3 class="text-lg font-bold mb-2 text-white">{{ experience.title }}</h3>
+            :class="experience.color"
+          >
+            <h3 class="text-lg font-bold mb-2 text-white">
+              {{ experience.title }}
+              <span
+                v-if="experience.flag"
+                class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500"
+              >
+                {{ experience.flag }}
+              </span>
+            </h3>
             <h4 class="text-md mb-2 text-gray-800">{{ experience.company }}</h4>
-            <p class="text-sm text-white-600 break-words max-w-full">{{ experience.description }}</p>
+            <p class="text-sm text-white-600 break-words max-w-full">
+              {{ experience.description }}
+            </p>
           </div>
         </div>
       </div>
@@ -30,29 +51,37 @@ export default {
           year: 2020,
           title: "Desenvolvedor Java Jr",
           company: "EDS Sistemas",
-          description: "Trabalhei em sistemas simples na linguagem Java",
+          description:
+            "Trabalhei em sistemas simples de controle de horas na linguagem Java",
           color: "bg-blue-500",
+          flag: "",
         },
         {
           year: 2021,
           title: "Desenvolvedor Front-end Jr",
           company: "Solvian IOT",
-          description: "Trabalhei com Vue.js e Ruby on Rails, em sistemas de controle de sensores e desenvolvendo novas features",
+          description:
+            "Trabalhei com Vue.js e Ruby on Rails, em sistemas de controle de sensores ordens de servico e desenvolvendo novas features",
           color: "bg-green-500",
+          flag: "",
         },
         {
           year: 2022,
           title: "Desenvolvedor Front-end Jr/Pleno",
           company: "TDA Dev",
-          description: "Trabalhei com Vue.js no desenvolvimento de um backoffice para controle de jogos online no estilo gambling",
+          description:
+            "Trabalhei com Vue.js no desenvolvimento de um backoffice para controle de jogos online no estilo gambling, nesse caso foi desenvolvido todas as telas e controles a serem feitos para um futuro cliente controlar os seus jogos",
           color: "bg-red-500",
+          flag: "",
         },
         {
           year: 2023,
           title: "Desenvolvedor Front-end Pleno",
           company: "Jogo Global",
-          description: "Trabalhei com Vue.js, React.js, Pixi.js e outros. Desenvolvedor de jogos para casinos online, como crash games, mines e double",
+          description:
+            "Trabalhando com Vue.js, React.js, Pixi.js e outros. Desenvolvedor de jogos para casinos online, como crash games, mines e double e porting de jogos em cocos creator, tendo um breve contato com Phaser.js",
           color: "bg-purple-500",
+          flag: "Atuando no momento",
         },
       ],
     };
