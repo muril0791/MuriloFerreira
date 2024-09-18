@@ -7,7 +7,7 @@ export default [
   {
     name: "React",
     level: 4,
-    color: "blue",
+    color: "blueReact",
   },
   {
     name: "HTML",
@@ -17,7 +17,7 @@ export default [
   {
     name: "CSS",
     level: 5,
-    color: "blue",
+    color: "blueCss",
   },
   {
     name: "JS",
@@ -28,5 +28,15 @@ export default [
     name: "TS",
     level: 5,
     color: "blue",
+  },
+  {
+    name: "Pixi.js",
+    level: 3,
+    color: "pink",
+  },
+  {
+    name: "Node.js",
+    level: 5,
+    color: "greeDark",
   },
 ];

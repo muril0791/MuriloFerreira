@@ -49,10 +49,19 @@ function getLevelValue(level) {
 
 function getColor(colorName) {
   const colors = {
-    green: '#10B981',
-    blue: '#3B82F6',
+    green: '#3fb27f',
+    blueReact: '#5ed3f3',
+    greeDark: '#74b55b',
+    blue: '#2f74c0',
+    blueCss: '#254bdd',
     orange: '#F97316',
-    yellow: '#F59E0B',
+    yellow: '#efd81d',
+    pink: '#E11D48',
+    red: '#EF4444',
+    purple: '#8B5CF6',
+    gray: '#9CA3AF',
+    white: '#FFFFFF',
+    black: '#000000',
   };
   return colors[colorName] || '#374151';
 }

@@ -5,24 +5,43 @@
         <img class="w-8 h-8" src="@/assets/menuIcon.png" />
       </button>
       <nav class="hidden md:flex justify-around mt-2 h-12">
-
-        <button v-for="item in menuItems" :key="item.id" @click="setActive(item)"
+        <button
+          v-for="item in menuItems"
+          :key="item.id"
+          @click="setActive(item)"
           :class="{ 'text-purple-500': activeItem === item }"
-          class="relative text-lg uppercase tracking-wide focus:outline-none">
+          class="relative text-lg uppercase tracking-wide focus:outline-none"
+        >
           {{ t(item.label) }}
-          <div v-if="activeItem === item" class="absolute left-0 right-0 bottom-0 h-1 bg-purple-500"></div>
+          <div
+            v-if="activeItem === item"
+            class="absolute left-0 right-0 bottom-0 h-1 bg-purple-500"
+          ></div>
         </button>
       </nav>
     </header>
-    <div class=" hidden md:flex flex justify-center items-center flex-row-reverse fixed bottom-0 right-0 m-3">
+    <div
+      class="hidden md:flex flex justify-center items-center flex-row-reverse fixed bottom-0 right-0 m-3"
+    >
       <Clock />
       <LanguageSwitcher />
     </div>
-    <div class="fixed inset-0 bg-black bg-opacity-50 z-40" v-if="drawer" @click="drawer = false"></div>
-    <aside class="fixed inset-y-0 left-0 w-64 h-full bg-[#111827] z-50 transform transition-transform duration-300"
-      :class="{ '-translate-x-full': !drawer, 'translate-x-0': drawer }">
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50 z-40"
+      v-if="drawer"
+      @click="drawer = false"
+    ></div>
+    <aside
+      class="fixed inset-y-0 left-0 w-64 h-full bg-[#111827] z-50 transform transition-transform duration-300"
+      :class="{ '-translate-x-full': !drawer, 'translate-x-0': drawer }"
+    >
       <nav class="flex flex-col space-y-4 p-4">
-        <button v-for="item in menuItems" :key="item.id" @click="navigate(item.section)" class="text-left">
+        <button
+          v-for="item in menuItems"
+          :key="item.id"
+          @click="navigate(item.section)"
+          class="text-left"
+        >
           {{ t(item.label) }}
         </button>
         <LanguageSwitcher />
@@ -30,24 +49,34 @@
     </aside>
 
     <main class="mt-5 space-y-40">
-      <section id="sobre-mim" class="h-screen flex items-center justify-center bg-fixed bg-cover"
-        style="background-image: url('/path/to/your/image.jpg')">
+      <section
+        id="sobre-mim"
+        class="flex items-center justify-center bg-fixed bg-cover"
+      >
         <aboutme />
       </section>
-      <section id="project" class="h-screen flex items-center justify-center bg-fixed bg-cover"
-        style="background-image: url('/path/to/your/image.jpg')">
+      <section
+        id="project"
+        class="flex items-center justify-center bg-fixed bg-cover"
+      >
         <myprojects />
       </section>
-      <section id="expertise" class="h-screen flex items-center justify-center bg-fixed bg-cover"
-        style="background-image: url('/path/to/your/image.jpg')">
+      <section
+        id="expertise"
+        class="flex items-center justify-center bg-fixed bg-cover"
+      >
         <expertise />
       </section>
-      <section id="expirience" class="h-screen flex items-center justify-center bg-fixed bg-cover"
-        style="background-image: url('/path/to/your/image.jpg')">
+      <section
+        id="expirience"
+        class="flex items-center justify-center bg-fixed bg-cover"
+      >
         <experience />
       </section>
-      <section id="contact" class="h-screen flex items-center justify-center bg-fixed bg-cover"
-        style="background-image: url('/path/to/your/image.jpg')">
+      <section
+        id="contact"
+        class="flex items-center justify-center bg-fixed bg-cover"
+      >
         <contact />
       </section>
       <Footer></Footer>
@@ -65,7 +94,6 @@ import Footer from "../components/footer.vue";
 import Myprojects from "../components/Myprojects.vue";
 import Clock from "../components/Clock.vue";
 import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
-import teste from "@/components/teste.vue";
 import { translate, state } from "@/Translation/lang";
 
 export default {
@@ -78,7 +106,6 @@ export default {
     Footer,
     Clock,
     LanguageSwitcher,
-    teste,
   },
   name: "DefaultLayout",
   data() {
@@ -145,46 +172,6 @@ export default {
   border-radius: 50%;
   background-color: rgb(65, 168, 33);
   margin: 0.5em;
-
-  @media (max-width: 600px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-.bg-gray-900 {
-  background-color: #1a202c;
-  /* Tailwind gray-900 */
-}
-
-.text-white {
-  color: #ffffff;
-}
-
-.text-purple-500 {
-  color: #805ad5;
-  /* Tailwind purple-500 */
-}
-
-.bg-purple-500 {
-  background-color: #805ad5;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.tracking-wide {
-  letter-spacing: 0.05em;
-}
-
-.relative {
-  position: relative;
-}
-
-.absolute {
-  position: absolute;
 }
 
 section {
