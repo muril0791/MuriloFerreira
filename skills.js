@@ -6,27 +6,27 @@ export default [
   },
   {
     name: "React",
-    level: 4,
+    level: 5,
     color: "blueReact",
   },
   {
     name: "HTML",
-    level: 5,
+    level: 6,
     color: "orange",
   },
   {
     name: "CSS",
-    level: 5,
+    level: 6,
     color: "blueCss",
   },
   {
     name: "JS",
-    level: 5,
+    level: 6,
     color: "yellow",
   },
   {
     name: "TS",
-    level: 5,
+    level: 6,
     color: "blue",
   },
   {

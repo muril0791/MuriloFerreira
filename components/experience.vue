@@ -42,51 +42,49 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      experiences: [
-        {
-          year: 2020,
-          title: "Desenvolvedor Java Jr",
-          company: "EDS Sistemas",
-          description:
-            "Trabalhei em sistemas simples de controle de horas na linguagem Java",
-          color: "bg-blue-500",
-          flag: "",
-        },
-        {
-          year: 2021,
-          title: "Desenvolvedor Front-end Jr",
-          company: "Solvian IOT",
-          description:
-            "Trabalhei com Vue.js e Ruby on Rails, em sistemas de controle de sensores ordens de servico e desenvolvendo novas features",
-          color: "bg-green-500",
-          flag: "",
-        },
-        {
-          year: 2022,
-          title: "Desenvolvedor Front-end Jr/Pleno",
-          company: "TDA Dev",
-          description:
-            "Trabalhei com Vue.js no desenvolvimento de um backoffice para controle de jogos online no estilo gambling, nesse caso foi desenvolvido todas as telas e controles a serem feitos para um futuro cliente controlar os seus jogos",
-          color: "bg-red-500",
-          flag: "",
-        },
-        {
-          year: 2023,
-          title: "Desenvolvedor Front-end Pleno",
-          company: "Jogo Global",
-          description:
-            "Trabalhando com Vue.js, React.js, Pixi.js e outros. Desenvolvedor de jogos para casinos online, como crash games, mines e double e porting de jogos em cocos creator, tendo um breve contato com Phaser.js",
-          color: "bg-purple-500",
-          flag: "Atuando no momento",
-        },
-      ],
-    };
-  },
+
+<script setup>
+import { ref, computed } from "vue";
+import { translate } from "@/Translation/lang";
+
+const t = (key, ...args) => {
+  return translate(key, ...args);
 };
+
+const experiences = ref([
+{
+  year: 2020,
+  title: "Junior Java Developer",
+  company: "EDS Sistemas",
+  description: "I worked on simple time-tracking systems using Java.",
+  color: "bg-blue-500",
+  flag: "",
+},
+{
+  year: 2021,
+  title: "Junior Front-end Developer",
+  company: "Solvian IOT",
+  description: "I worked with Vue.js and Ruby on Rails on sensor-control and work-order systems, developing new features.",
+  color: "bg-green-500",
+  flag: "",
+},
+{
+  year: 2022,
+  title: "Junior/Mid-level Front-end Developer",
+  company: "TDA Dev",
+  description: "I used Vue.js to build a back-office for managing online gambling games, creating all screens and controls so future clients could oversee their games.",
+  color: "bg-red-500",
+  flag: "",
+},
+{
+  year: 2023,
+  title: "Mid-level Front-end Developer",
+  company: "Jogo Global",
+  description: "Working with Vue.js, React.js, Pixi.js and more. I develop online-casino games such as crash, mines and double, and port games in Cocos Creator, with brief exposure to Phaser.js.",
+  color: "bg-purple-500",
+  flag: "Currently working",
+},
+]);
 </script>
 
 <style scoped>
@@ -117,22 +115,18 @@ export default {
 
 .bg-blue-500 {
   background-color: #3b82f6;
-  /* Tailwind blue-500 */
 }
 
 .bg-green-500 {
   background-color: #10b981;
-  /* Tailwind green-500 */
 }
 
 .bg-red-500 {
   background-color: #ef4444;
-  /* Tailwind red-500 */
 }
 
 .bg-purple-500 {
   background-color: #8b5cf6;
-  /* Tailwind purple-500 */
 }
 
 @media (max-width: 640px) {

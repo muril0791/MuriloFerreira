@@ -18,5 +18,4 @@ export default {
 </script>
 
 <style scoped>
-/* Your component's CSS styles go here */
 </style>

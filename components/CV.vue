@@ -110,5 +110,5 @@ const t = (key, ...args) => {
 </script>
 
 <style scoped>
-/* Adicione estilos personalizados se necessário */
+
 </style>
